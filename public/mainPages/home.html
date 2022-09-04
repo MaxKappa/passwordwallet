@@ -1,83 +1,86 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>Password Wallet</title>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
-  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-  <meta name="generator" content="Hugo 0.101.0">
-  <title id="titolo">Password Wallet</title>
-
-  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/carousel/">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="./public/css/home.css" rel="stylesheet">
-  <link href="./public/css/carousel.css" rel="stylesheet">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-
-<body>
-
-  <header>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand" style="margin-bottom: -2.4rem; font-size: 20px;">Password Wallet</a>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/carousel/">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./public/css/home.css" rel="stylesheet">
+    <link href="./public/css/carousel.css" rel="stylesheet">
+    <link href="./public/css/nav.css" rel="stylesheet">
+    <link href="carousel.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+  </head>
+  <body>
+    
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Password Wallet</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/home">Home</a>
+          </li>
+        </ul> 
+          <ul class="nav navbar-nav navbar-right">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/main">Home</a>
+              <a class="nav-link active" aria-current="page" onclick="logout()">Logout</a>
             </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <button type="button" class="btn btn-dark" style="font-size: 15px;" onclick="logout()">Logout</button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-   
-    <div class="container">
-      <h1 style="margin-top: 10rem; margin-bottom: 7rem;">Hi <span id="username"></span></h1>
-      <div class="table-wrapper">
-        <div class="table-title">
-          <div class="row">
-            <div class="col-sm-8">
-              <h2>Password Details</h2>
-            </div>
-
-              <div class="col-sm-4">
-                <button type="button" class="btn btn-info add-new" id="addnew"><i class="fa fa-plus"></i> Add
-                  New</button>
-              </div>
-          </div>
-        </div>
-        <table class="table table-bordered" id="mytb">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Username</th>
-              <th>Password</th>
-              <th>Url</th>
-              <th>Notes</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-          </tbody>
-        </table>
+           
+        </ul>
       </div>
     </div>
+  </nav>
+</header>
+
+<main>
+
+  <div class="container">
+    <h1 style="margin-top: 4rem; margin-bottom: 7rem;">Hi <span id="username"></span></h1>
+    <div class="table-wrapper">
+      <div class="table-title">
+        <div class="row">
+          <div class="col-sm-8">
+            <h2>Password Details</h2>
+          </div>
+
+            <div class="col-sm-4">
+              <button type="button" class="btn btn-info add-new" id="addnew"><i class="fa fa-plus"></i> Add
+                New</button>
+            </div>
+        </div>
+      </div>
+      <table class="table table-bordered" id="mytb">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Username</th>
+            <th>Password</th>
+            <th>Url</th>
+            <th>Notes</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </body>
-<hr class="featurette-divider" style="margin-bottom: 3em; margin-top: 22em; position: static">
+<hr class="featurette-divider" style="margin-bottom: 3em; margin-top: 19em; position: static">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
@@ -251,17 +254,17 @@
   
 </script>
 
-<footer class="container">
-  <p class="float-end" style="position: static"><a href="https://127.0.0.1:8080/privacy">Privacy</a> &middot; <a
-      href="https://127.0.0.1:8080/terms">Terms</a></p>
-  <p>Copyright &copy; Password Wallet</p>
-</footer>
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-end" style="position: static"><a href="https://127.0.0.1:8080/privacy">Privacy</a> &middot; <a
+        href="https://127.0.0.1:8080/terms">Terms</a></p>
+    <p>Copyright &copy; Password Wallet</p>
+  </footer>
 </main>
 
 
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 
-
-</body>
-
+      
+  </body>
 </html>
