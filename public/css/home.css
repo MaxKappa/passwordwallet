@@ -1,0 +1,192 @@
+.b-example-divider {
+    height: 3rem;
+    background-color: rgba(0, 0, 0, .1);
+    border: solid rgba(0, 0, 0, .15);
+    border-width: 1px 0;
+    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+  }
+
+  .b-example-vr {
+    flex-shrink: 0;
+    width: 1.5rem;
+    height: 100vh;
+  }
+
+  .bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+  }
+
+  .nav-scroller {
+    position: relative;
+    z-index: 2;
+    height: 2.75rem;
+    overflow-y: hidden;
+  }
+
+  .nav-scroller .nav {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 1rem;
+    margin-top: -1px;
+    overflow-x: auto;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  h1 {
+    text-align: center;
+    display: block;
+    font-size: 2, 5em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  body {
+    color: #404E67;
+    background: #F5F7FA;
+    font-size: 15px;
+  }
+
+  .table-wrapper {
+    width: auto;
+    margin: 30px auto;
+    background: #fff;
+    padding: 20px;
+  }
+
+  .table-title {
+    padding-bottom: 10px;
+    margin: 0 0 10px;
+  }
+
+  .table-title h2 {
+    margin: 6px 0 0;
+    font-size: 22px;
+  }
+
+  .table-title .add-new {
+    float: right;
+    height: 30px;
+    font-weight: bold;
+    font-size: 12px;
+    text-shadow: none;
+    min-width: 100px;
+    border-radius: 50px;
+    line-height: 13px;
+  }
+
+  .table-title .add-new i {
+    margin-right: 4px;
+  }
+
+  table.table tr th,
+  table.table tr td {
+    border-color: #e9e9e9;
+  }
+
+  table.table th i {
+    font-size: 13px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+
+  table.table th:last-child {
+    width: 100px;
+  }
+
+  table.table td a {
+    cursor: pointer;
+    display: inline-block;
+    margin: 0 5px;
+    min-width: 24px;
+  }
+
+  table.table td a.add {
+    color: #27C46B;
+  }
+
+  table.table td a.edit {
+    color: #FFC107;
+  }
+
+  table.table td a.delete {
+    color: #E34724;
+  }
+
+  table.table td i {
+    font-size: 19px;
+  }
+
+  table.table td a.add i {
+    font-size: 24px;
+    margin-right: -1px;
+    position: relative;
+    top: 3px;
+  }
+
+  table.table .form-control {
+    height: 32px;
+    line-height: 32px;
+    box-shadow: none;
+    border-radius: 2px;
+  }
+
+  table.table .form-control.error {
+    border-color: #f50000;
+  }
+
+  table.table td .add {
+    display: none;
+  }
+
+  .gg-eye {
+    margin-left: 6.7rem;
+    margin-top: -2.4rem;
+    display: block;
+    transform: scale(var(--ggs, 1));
+    width: 24px;
+    height: 18px;
+    border-bottom-right-radius: 100px;
+    border-bottom-left-radius: 100px;
+    overflow: hidden;
+    box-sizing: border-box;
+    float: right;
+  }
+
+  .gg-eye::after,
+  .gg-eye::before {
+    content: "";
+    display: block;
+    border-radius: 100px;
+    position: absolute;
+    box-sizing: border-box
+  }
+
+  .gg-eye::after {
+    top: 2px;
+    box-shadow:
+      inset 0 -8px 0 2px,
+      inset 0 0 0 2px;
+    width: 24px;
+    height: 24px
+  }
+
+  .gg-eye::before {
+    width: 8px;
+    height: 8px;
+    border: 2px solid;
+    bottom: 4px;
+    left: 8px
+  }
+
+  input[type="text"] {
+    font-size: 15px;
+  }
+
+  #password {
+    -webkit-text-security: circle;
+  }

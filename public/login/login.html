@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.101.0">
+    <title>Login</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/sign-in/">
+
+<link href="../../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="./public/css/signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+<main class="form-signin w-100 m-auto">
+  <div class="alert alert-danger" id="myAlert" role="alert" style="visibility: hidden">>
+  </div>
+  <div class="alert alert-success" id="myAlertS" role="alert" style="visibility: hidden">
+  </div>
+  <h1 class="a">Password Wallet</h1>
+  <form id="login">
+    <h3 class="h3 mb-3 fw-normal">Sign in</h3>
+    <div class="form-floating">
+      <input type="username" class="form-control" id="username" name="username" placeholder="Username" required>
+      <label for="username">Username</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" id="password" name="password" placeholder="Password" autocomplete="off">
+      <label for="password">Password</label>
+      <span><a class="show" title="Show" data-toggle="tooltip"><i class="gg-eye"></i></a></span>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" id="mybtn" type="submit">Sign in</button>
+    <script>
+      let mess2 = "";
+			const form = document.getElementById('login')
+			form.addEventListener('submit', login)
+			
+      async function login(event) {
+				event.preventDefault()
+				const username = document.getElementById('username').value
+				const password = document.getElementById('password').value
+				const result = await fetch('/login', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify({
+						username,
+						password,
+					})
+				}).then((res) => res.json())
+
+				if (result.status === 'ok') {
+					mess2 = "Success";
+          var old = document.getElementById('myAlert');
+          old.style = "visibility: hidden";
+          var al = document.getElementById('myAlertS')
+          al.style = "visibility: visible";
+          document.getElementById('myAlertS').innerHTML = mess2;
+          setTimeout(function(){window.location.href = "/main"} , 1000);  
+				} else if (document.getElementById('username').value == '' || document.getElementById('password').value == ''){
+            mess2 = "Compilare i campi vuoti.";
+            var al = document.getElementById('myAlert')
+            al.style = "visibility: visible";
+            document.getElementById('myAlert').innerHTML = mess2;
+        } else {
+					mess2 = result.error;
+          var al = document.getElementById('myAlert')
+          al.style = "visibility: visible";
+          document.getElementById('myAlert').innerHTML = mess2;
+				}
+			}
+////////////////////////////////////////////////////////////////////////////////////
+  $(document).ready(function(){
+    let bool = false;
+    $(document).on("click", ".show", function() {
+      if (bool){
+        $('#password').css("-webkit-text-security", "circle");
+        bool = false;
+      }else {
+        $('#password').css("-webkit-text-security", "none");
+        bool = true;
+      }
+    })
+  }); 
+    
+
+
+		</script>
+    <p class="mt-3 mb-3 fw-normal"> Don't have an account? <a href="/registration">Register</a> </p>
+    <p class="mt-5 mb-3 text-muted">Massimiliano Capparuccia 2022 &copy;</p>
+  </form>
+</main>
+
+
+    
+  </body>
+</html>
