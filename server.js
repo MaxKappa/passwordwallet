@@ -12,6 +12,7 @@ const uri = "mongodb+srv://Admin:Massi2001.@cluster0.xoqeknq.mongodb.net/appdb?r
 const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfj';
 const { createDoc, insertDoc, query, deleteDoc, modifyDoc, getIV } = require('./pwdFunc');
 const forge = require('node-forge');
+const dotenv = require('dotenv');
 const { validate } = require('./models/user');
 
 var key = '';
@@ -223,10 +224,11 @@ app.get('/:name', async (req, res) => {
 	}
 });
 
+dotenv.config();
 
 const options = {
-	key: fs.readFileSync("server.key"),
-	cert: fs.readFileSync("server.cert"),
+	key: process.env.SSL_KEY,
+	cert: process.env.SSL_CERT,
 };
 
 
