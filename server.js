@@ -1,10 +1,6 @@
-
-
 const express = require('express');
-//const https = require("https");
 const http = require("http");
 const PORT = process.env.PORT || 5001;
-
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const User = require('./models/user');
@@ -26,6 +22,7 @@ mongoose.connect(uri, {
 })
 
 const app = express()
+
 app.use(express.static("./"));
 app.use(bodyParser.json())
 app.set('view engine', 'html');
@@ -78,8 +75,6 @@ app.get('/home', async (req, res) => {
 })
 
 
-
-
 app.get('/', async (req, res) => {
 	res.redirect('/main');
 });
@@ -108,8 +103,6 @@ app.post('/login', async (req, res) => {
 			JWT_SECRET,
 			{ expiresIn: 3600 }
 		)
-
-		//	console.log(token);
 		res.cookie('auth-token', token);
 		return res.json({ status: 'ok' });
 	}
@@ -132,7 +125,6 @@ app.post('/registration', async (req, res) => {
 	if (plainTextPassword != RepeatPassword) {
 		return res.json({ status: 'error', error: 'Le password non combaciano.' });
 	}
-
 	const password = await bcrypt.hash(plainTextPassword, 10);
 	try {
 		const response = await User.create({
@@ -177,6 +169,7 @@ app.post('/addPassword', async (req, res) => {
 	console.log(doc, user);
 	insertDoc(user, doc, key);
 })
+
 
 app.post('/deletePassword', async (req, res) => {
 	const {username, index} = req.body;

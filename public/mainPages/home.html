@@ -86,6 +86,8 @@
 <script>
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  //Parse data from server
   const text = '<a class="add" title="Save" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a><a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a><a class="delete" id="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a><a class="show" title="Show" data-toggle="tooltip"><i class="gg-eye"></i></a>'
   $.ajax({
     type: 'POST',
@@ -106,6 +108,7 @@
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   var name = "<%= name %>";
   document.getElementById('username').innerHTML = name;
+ 
   function logout() {
     document.cookie = 'auth-token=;Max-Age=0; ';
     console.log(document.cookie);
@@ -114,6 +117,8 @@
   console.log(document.cookie);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  
+  //Table row add, edit, delete and show
   var mybl = true;
   $(document).ready(function () {
     mybl = true;
@@ -143,7 +148,6 @@
       $(this).parents("tr").find(".error").first().focus();
         input.each(function (i) {
           $(this).parent("td").html($(this).val());
-          
           arr[i] = $(this).val();
         });
         async function Modpwd(){
@@ -179,7 +183,7 @@
           const password = arr[2];
           const url = arr[3];
           const notes = arr[4];
-          //console.log("Title: " + title + "\nUsername: " + username + "\nPassword: " + password + "\nUrl: " + url + "\nNotes: "+ notes);
+
           const result = await fetch('/addPassword', {
             method: 'POST',
             headers: {
@@ -203,10 +207,11 @@
         }
         $(this).parents("tr").find(".add, .edit").toggle();
         $(".add-new").removeAttr("disabled");
-      
-
     });
-    // Edit 
+
+
+
+    // Table row edit
     $(document).on("click", ".edit", function () {
       mybl = false;
       $(this).parents("tr").find("td:not(:last-child)").each(function () {

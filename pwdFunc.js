@@ -36,7 +36,6 @@ async function insert(user_id, dataDoc, key){
 
 async function query(user_id, key){
     const documento = await Data.findOne({ user_id }).lean();
-  //  console.log("QUESTO E' IL SUO DOCUMENTO " + documento + "\nQUESTO E' LO USER_ID = " + user_id);
     if (documento.encryptedVault.encryptedData.length != 0){
         documento.encryptedVault.encryptedData = decrypt(key, documento.encryptedVault.iv, documento.encryptedVault.encryptedData[0]);
         try{
@@ -80,25 +79,7 @@ const gestPwd = {
 module.exports = gestPwd;
 
 
-/*
- <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container-fluid">
-        <a class="navbar-brand">Password Wallet</a>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/main">Home</a>
-            </li>
-          </ul>
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <button type="button" class="btn btn-dark" onclick="logout()">Logout</button>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-*/
+
 /*
 //////////////////////////////////////////////////////////
 TEST
