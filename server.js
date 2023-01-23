@@ -9,12 +9,12 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const uri = "mongodb+srv://Admin:Massi2001.@cluster0.xoqeknq.mongodb.net/appdb?retryWrites=true&w=majority";
 const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfj';
-const { createDoc, insertDoc, query, deleteDoc, modifyDoc, getIV } = require('./pwdFunc');
-const forge = require('node-forge');
+const { insertDoc, query, deleteDoc, modifyDoc } = require('./service/dbService');
 const dotenv = require('dotenv');
-const {validateCookie, validateKeyCookie} = require('./CookiesFunctions');
-const validateKey = require ('./keyFunctions');
-const validateKeyMiddleware = require('./keyFunctions');
+const {validateCookie, validateKeyCookie} = require('./middleware/cookieMiddleware');
+const validateKeyMiddleware = require('./middleware/keyMiddleware');
+const loginMiddleware = require('./middleware/loginMiddleware');
+const registrationMiddleware = require('./middleware/registrationMiddleware');
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -49,61 +49,9 @@ app.get('/registration', async (req, res) => {
 	res.render(__dirname + '/public/registration/registration.html');
 })
 
-app.post('/login', async (req, res) => {
-	const { username, password } = req.body
-	const user = await User.findOne({ username }).lean()
-	key = '';
-	if (!user) {
-		return res.json({ status: 'error', error: 'Invalid username/password' })
-	}
-	if (await bcrypt.compare(password, user.password)) {
-		const token = jwt.sign(
-			{
-				id: user._id,
-				username: user.username
-			},
-			JWT_SECRET,
-			{ expiresIn: 3600 }
-		)
-		res.cookie('auth-token', token);
-		return res.json({ status: 'ok' });
-	}
-	res.json({ status: 'error', error: 'Invalid username/password' })
-})
+app.post('/login', loginMiddleware);
 
-app.post('/registration', async (req, res) => {
-	const username = req.body.username;
-	const plainTextPassword = req.body.password;
-	const RepeatPassword = req.body.confirm;
-	if (!username || typeof username !== 'string') {
-		res.json({ status: 'error', error: 'Username non valido' });
-	}
-	if (!plainTextPassword || typeof plainTextPassword !== 'string') {
-		return res.json({ status: 'error', error: 'Password non valida' });
-	}
-	if (plainTextPassword.length < 5) {
-		return res.json({ status: 'error', error: 'Password troppo corta. Inserire almeno 6 caratteri.' });
-	}
-	if (plainTextPassword != RepeatPassword) {
-		return res.json({ status: 'error', error: 'Le password non combaciano.' });
-	}
-	const password = await bcrypt.hash(plainTextPassword, 10);
-	try {
-		const response = await User.create({
-			username,
-			password
-		})
-		console.log('Utente creato: ', response)
-		await createDoc(username);
-	} catch (error) {
-		if (error.code === 11000) {
-			return res.json({ status: 'error', error: 'Username già in uso.' })
-		}
-		throw error
-	}
-	res.json({ status: 'ok' });
-
-});
+app.post('/registration', registrationMiddleware);
 
 
 app.post('/sendData', async (req, res) => {
@@ -153,8 +101,6 @@ app.post('/modPassword', async (req, res) => {
 
 
 app.post("/key", validateKeyMiddleware);
-
-
 
 //deve stare ultima questa
 app.get('/:name', async (req, res) => {

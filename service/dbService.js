@@ -1,7 +1,7 @@
-const Data = require('./models/data');
+const Data = require('../models/data');
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://Admin:Massi2001.@cluster0.xoqeknq.mongodb.net/appdb?retryWrites=true&w=majority";
-const { encrypt, decrypt } = require('./hashingFunction');
+const { encrypt, decrypt } = require('../service/encryptionService');
 const forge = require('node-forge');
 async function create(user){
     try {
