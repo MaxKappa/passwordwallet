@@ -6,16 +6,15 @@ const mongoose = require('mongoose');
 const User = require('./models/user');
 const Data = require('./models/data');
 const bcrypt = require('bcryptjs');
-const fs = require("fs");
 const jwt = require('jsonwebtoken');
 const uri = "mongodb+srv://Admin:Massi2001.@cluster0.xoqeknq.mongodb.net/appdb?retryWrites=true&w=majority";
 const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfj';
 const { createDoc, insertDoc, query, deleteDoc, modifyDoc, getIV } = require('./pwdFunc');
 const forge = require('node-forge');
 const dotenv = require('dotenv');
-const { validate } = require('./models/user');
 const {validateCookie, validateKeyCookie} = require('./CookiesFunctions');
-
+const validateKey = require ('./keyFunctions');
+const validateKeyMiddleware = require('./keyFunctions');
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -153,24 +152,10 @@ app.post('/modPassword', async (req, res) => {
 })
 
 
-app.post("/key", async (req, res) => {
-	const {inputKey, username} = req.body;
-	async function validateKey(inputKey, username){
-		var iv = await getIV(username);
-		var key = forge.pkcs5.pbkdf2(inputKey, iv, 1, 16);
-		try {
-			let doc = await query(username, key);
-			res.json({status: 'ok'});
-			return key;
-		} catch (e){
-			console.log(e)
-			res.json({status: 'error', error: 'Invalid key'});
-		}
-		
-	}
-	console.log(inputKey);
-	key = await validateKey(inputKey, username);
-})
+app.post("/key", validateKeyMiddleware);
+
+
+
 //deve stare ultima questa
 app.get('/:name', async (req, res) => {
 	switch (req.params.name) {
