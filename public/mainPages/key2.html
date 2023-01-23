@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.101.0">
+  <title id="titolo">Password Wallet</title>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.2/examples/carousel/">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round|Open+Sans">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="./public/css/key.css" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link href="./public/css/carousel.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Password Wallet</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/home">Home</a>
+            </li>
+          </ul> 
+            <ul class="nav navbar-nav navbar-right">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" onclick="logout()">Logout</a>
+              </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+    <main class="main-content">
+        <div class="">
+            <h1 id="titolo">Please submit your encryption key</h1>
+        </div>
+        <div class="myform" >
+            <div class="input-eye">
+              <form id="login">
+                <input type="text" class="myinput" id="password" name="password" placeholder="Key" autocomplete="off">
+                <a class="show" title="Show" data-toggle="tooltip"><i class="myeye"></i></a>
+                <button class="w-100 btn btn-lg btn-primary mybtn" id="mybtn" type="submit">Submit</button> 
+              </form>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+  function logout() {
+    document.cookie = 'auth-token=;Max-Age=0; ';
+    window.location.href = '/login';
+  }
+  console.log(document.cookie);
+ /*
+  window.onunload = function () {
+    return logout();
+  };
+*/
+$(document).ready(function(){
+    let bool = false;
+    $(document).on("click", ".show", function() {
+      if (bool){
+        $('#password').css("-webkit-text-security", "circle");
+        bool = false;
+      }else {
+        $('#password').css("-webkit-text-security", "none");
+        bool = true;
+      }
+    })
+  }); 
+
+let mess2 = ""
+const form = document.getElementById('login')
+form.addEventListener('submit', sendKey)
+			
+async function sendKey(event) {
+    event.preventDefault()
+    const username = "<%= name %>";
+    const inputKey = document.getElementById('password').value
+    const result = await fetch('/key', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            inputKey,
+            username
+        })
+    }).then((res) => res.json())
+    if (result.status === 'ok') {
+        window.location.href = '/home'
+    } else {
+        mess2 = result.message
+        alert(mess2)
+    }
+}
+</script>
+</html>

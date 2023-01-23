@@ -14,8 +14,8 @@ const { createDoc, insertDoc, query, deleteDoc, modifyDoc, getIV } = require('./
 const forge = require('node-forge');
 const dotenv = require('dotenv');
 const { validate } = require('./models/user');
+const {validateCookie, validateKeyCookie} = require('./CookiesFunctions');
 
-var key = '';
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -30,51 +30,13 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/main', async (req, res) => {
-	let cookie = req.headers.cookie;
-	try {
-		cookie = cookie.split("=")[1];
-	} catch {
-		console.log("MISSING TOKEN");
-		return res.redirect("/login");
-	}
-	try {
-		const decoded = jwt.verify(cookie, JWT_SECRET);
-		req.user = decoded;
-		console.log("Token verified!");
-		return res.render(__dirname + '/public/mainPages/key.html', { name: req.user.username });
-
-	} catch (err) {
-		return res.redirect("/login");
-	}
+app.get('/main', validateCookie, async (req, res) => {
+	res.render(__dirname + '/public/mainPages/key2.html', { name: req.user.username });
 })
 
-app.get('/home', async (req, res) => {
-	let cookie = req.headers.cookie;
-	try {
-		cookie = cookie.split("=")[1];
-	} catch {
-		console.log("MISSING TOKEN");
-		key = '';
-		return res.redirect("/login");
-	}
-	try {
-		const decoded = jwt.verify(cookie, JWT_SECRET);
-		req.user = decoded;
-		console.log("Token verified!");
-		console.log(req.user);
-		if (key != ''){
-			console.log("Key verified!");
-			return res.render(__dirname + '/public/mainPages/home.html', { name: req.user.username });
-		} else {
-			console.log("MISSING KEY");
-			return res.redirect("/main");
-		}
-	} catch (err) {
-		return res.redirect("/login");
-	}
+app.get('/home', validateKeyCookie, async (req, res) => {
+	res.render(__dirname + '/public/mainPages/home2.html', { name: req.user.username });
 })
-
 
 app.get('/', async (req, res) => {
 	res.redirect('/main');
