@@ -3,15 +3,14 @@ const http = require("http");
 const PORT = process.env.PORT || 5001;
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 const uri = "mongodb+srv://Admin:Massi2001.@cluster0.xoqeknq.mongodb.net/appdb?retryWrites=true&w=majority";
-const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfj';
-const { insertDoc, query, deleteDoc, modifyDoc } = require('./service/dbService');
 const dotenv = require('dotenv');
-const {validateCookie, validateKeyCookie} = require('./middleware/cookieMiddleware');
+const {validateCookieMiddleware, validateKeyCookieMiddleware} = require('./middleware/cookieMiddleware');
 const validateKeyMiddleware = require('./middleware/keyMiddleware');
-const loginMiddleware = require('./middleware/loginMiddleware');
-const registrationMiddleware = require('./middleware/registrationMiddleware');
+const loginService = require('./service/loginService');
+const registrationService = require('./service/registrationService');
+const { addService, deleteService, sendDataService, updateService } = require('./service/dataService');
+
 
 mongoose.connect(uri, {
 	useNewUrlParser: true,
@@ -26,11 +25,11 @@ app.set('view engine', 'html');
 app.engine('html', require('ejs').renderFile);
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get('/main', validateCookie, async (req, res) => {
+app.get('/main', validateCookieMiddleware, async (req, res) => {
 	res.render(__dirname + '/public/mainPages/key2.html', { name: req.user.username });
 })
 
-app.get('/home', validateKeyCookie, async (req, res) => {
+app.get('/home', validateKeyCookieMiddleware, async (req, res) => {
 	res.render(__dirname + '/public/mainPages/home2.html', { name: req.user.username });
 })
 
@@ -46,55 +45,17 @@ app.get('/registration', async (req, res) => {
 	res.render(__dirname + '/public/registration/registration.html');
 })
 
-app.post('/login', loginMiddleware);
+app.post('/login', loginService);
 
-app.post('/registration', registrationMiddleware);
+app.post('/registration', registrationService);
 
+app.post('/sendData', sendDataService);
 
-app.post('/sendData', async (req, res) => {
-	try {
-		let cookie = req.headers.cookie;
-		cookie = cookie.split("=")[1];
-		const decoded = jwt.verify(cookie, JWT_SECRET);
-		req.user = decoded;
-		var doc = await query(req.user.username, key);
-		res.json(doc.encryptedVault.encryptedData);
-	} catch (e){
-		console.log(e);
-	}
-});
+app.post('/addPassword',addService);
 
-app.post('/addPassword', async (req, res) => {
-	const {user, title, username, password, url, notes} = req.body;
-	var doc = {
-		title: title,
-		username: username,
-		password: password,
-		url: url,
-		notes: notes
-	}
-	console.log(doc, user);
-	insertDoc(user, doc, key);
-})
+app.post('/deletePassword', deleteService);
 
-
-app.post('/deletePassword', async (req, res) => {
-	const {username, index} = req.body;
-	deleteDoc(username, key, index);
-})
-
-
-app.post('/modPassword', async (req, res) => {
-	const {user, title, username, password, url, notes, index } = req.body;
-	var doc = {
-		title: title,
-		username: username,
-		password: password,
-		url: url,
-		notes: notes
-	}
-	modifyDoc(user, key, doc, index);
-})
+app.post('/modPassword', updateService);
 
 
 app.post("/key", validateKeyMiddleware);

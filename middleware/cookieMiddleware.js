@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = 'sdjkfh8923yhjdksbfma@#*(&@*!^#&@bhjb2qiuhesdbhjdsfg839ujkdhfj';
 
-const validateCookie = async (req,res, next) => {
+const validateCookieMiddleware = async (req,res, next) => {
     let cookie = req.headers.cookie;
 	try {
 		cookie = cookie.split("=")[1];
@@ -20,7 +20,7 @@ const validateCookie = async (req,res, next) => {
 	}
 }
 
-const validateKeyCookie = async (req, res, next) => {
+const validateKeyCookieMiddleware = async (req, res, next) => {
 	let cookie = req.headers.cookie;
 	try {
 		cookie = cookie.split("=")[1];
@@ -48,8 +48,8 @@ const validateKeyCookie = async (req, res, next) => {
 }
 
 const cookiesFunc = {
-	validateCookie: validateCookie,
-	validateKeyCookie: validateKeyCookie
+	validateCookieMiddleware: validateCookieMiddleware,
+	validateKeyCookieMiddleware: validateKeyCookieMiddleware
 }
 
 module.exports = cookiesFunc;

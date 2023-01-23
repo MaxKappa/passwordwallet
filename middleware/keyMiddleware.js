@@ -1,5 +1,5 @@
 const forge = require('node-forge');
-const { query, getIV } = require('../service/dbService');
+const { query, getIV } = require('../helpers/dbHelper');
 key = '';
 
 const validateKeyMiddleware = async (req, res, next) => {
