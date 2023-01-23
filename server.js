@@ -2,20 +2,15 @@ const express = require('express');
 const http = require("http");
 const PORT = process.env.PORT || 5001;
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const uri = "mongodb+srv://Admin:Massi2001.@cluster0.xoqeknq.mongodb.net/appdb?retryWrites=true&w=majority";
 const dotenv = require('dotenv');
 const {validateCookieMiddleware, validateKeyCookieMiddleware} = require('./middleware/cookieMiddleware');
 const validateKeyMiddleware = require('./middleware/keyMiddleware');
 const loginService = require('./service/loginService');
 const registrationService = require('./service/registrationService');
 const { addService, deleteService, sendDataService, updateService } = require('./service/dataService');
+const { DBconnect } = require('./service/dbService');
 
-
-mongoose.connect(uri, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true
-})
+DBconnect();
 
 const app = express()
 
@@ -89,5 +84,9 @@ http.createServer(options, app).listen(PORT, function (req, res) {
 });
 
 
-//git commit -m "first commit"
-//git push
+/*
+Git commands:
+git add .
+git commit -am "message"
+git push 
+*/
