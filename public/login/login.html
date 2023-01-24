@@ -18,8 +18,6 @@
 <main class="form-signin w-100 m-auto">
   <div class="alert alert-danger" id="myAlert" role="alert" style="visibility: hidden">>
   </div>
-  <div class="alert alert-success" id="myAlertS" role="alert" style="visibility: hidden">
-  </div>
   <h1 class="a">Password Wallet</h1>
   <form id="login">
     <h3 class="h3 mb-3 fw-normal">Sign in</h3>
@@ -55,9 +53,6 @@
 					mess2 = "Success";
           var old = document.getElementById('myAlert');
           old.style = "visibility: hidden";
-          var al = document.getElementById('myAlertS')
-          al.style = "visibility: visible";
-          document.getElementById('myAlertS').innerHTML = mess2;
           setTimeout(function(){window.location.href = "/main"} , 1000);  
 				} else if (document.getElementById('username').value == '' || document.getElementById('password').value == ''){
             mess2 = "Compilare i campi vuoti.";

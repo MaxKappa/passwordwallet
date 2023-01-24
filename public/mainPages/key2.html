@@ -45,6 +45,8 @@
   </header>
 
     <main class="main-content">
+      <div class="alert alert-danger" id="myAlert" role="alert" style="visibility: hidden">>
+      </div>
         <div class="">
             <h1 id="titolo">Please submit your encryption key</h1>
         </div>
@@ -105,8 +107,10 @@ async function sendKey(event) {
     if (result.status === 'ok') {
         window.location.href = '/home'
     } else {
-        mess2 = result.message
-        alert(mess2)
+        mess2 = "Invalid key ";
+        var al = document.getElementById('myAlert')
+        al.style = "visibility: visible";
+        document.getElementById('myAlert').innerHTML = mess2;
     }
 }
 </script>
