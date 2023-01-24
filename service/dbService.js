@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const uri = "mongodb+srv://Admin:Massi2001.@cluster0.xoqeknq.mongodb.net/appdb?retryWrites=true&w=majority";
 
+mongoose.set('strictQuery', true);
+
 async function DBconnect() {
     await mongoose.connect(uri, {
         useNewUrlParser: true,
@@ -11,5 +13,7 @@ async function DBconnect() {
         console.log(err);
     })
 }
+
+
 
 module.exports = { DBconnect }
