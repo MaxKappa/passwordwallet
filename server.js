@@ -1,7 +1,8 @@
 const express = require('express');
-const http = require("http");
-const PORT = process.env.PORT || 5001;
+const https = require("https");
+const PORT = process.env.PORT || 443;
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const dotenv = require('dotenv');
 const {validateCookieMiddleware, validateKeyCookieMiddleware} = require('./middleware/cookieMiddleware');
 const validateKeyMiddleware = require('./middleware/keyMiddleware');
@@ -73,13 +74,13 @@ app.get('/:name', async (req, res) => {
 dotenv.config();
 
 const options = {
-	key: process.env.SSL_KEY,
-	cert: process.env.SSL_CERT,
+	key: fs.readFileSync("./key.pem"),
+	cert: fs.readFileSync("./cert.pem"),
 };
 
 
 //https.createServer(options, app).listen(PORT, function (req, res) {
-http.createServer(options, app).listen(PORT, function (req, res) {
+https.createServer(options, app).listen(PORT, function (req, res) {
 	console.log("Server started at port " + PORT);
 });
 
