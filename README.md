@@ -7,6 +7,3 @@ I dati che vengono salvati nel DB sono totalmente oscurati e incomprensibili, po
 **Forge**
 Questa libreria è stata scelta dopo aver esplorato alcuni benchmark comparativi fra varie librerie Javascript: è risultata molto veloce anche al crescere dei dati cifrati. Va tenuto in considerazione che in questo tipo di applicazione il wallet potrebbe crescere in maniera rilevante nelle dimensioni.  
 
-1) www.getbootstrap.com
-1) www.stackoverflow.com
-1) www.w3schools.com 
