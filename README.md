@@ -1,9 +1,24 @@
 # Password Wallet 
 
-Autore:  Massimiliano Capparuccia 
+PasswordWallet is a secure, user-friendly web application designed for efficient password management and storage, utilizing advanced encryption for data protection.
 
-L’applicazione permette all’utente di registrarsi inserendo uno username univoco ed una  password che poi verranno utilizzate per autenticarsi sulla piattaforma. Dopo essersi autenticati, verrà chiesta una chiave, che verrà utilizzata per cifrare i propri dati. Una volta inserita la chiave nella pagina principale verranno visualizzati i dati correlati alle password.
-I dati che vengono salvati nel DB sono totalmente oscurati e incomprensibili, possono essere letti solamente se l’utente inserisce la propria chiave. Questa chiave non viene mai memorizzata in nessuna parte. L’algoritmo di cifratura utilizzato è AES-256-CBC, scelto perché è un buon compromesso tra velocità di esecuzione e sicurezza, implementato grazie a delle funzioni messe a disposizione dalla libreria Forge.  
-**Forge**
-Questa libreria è stata scelta dopo aver esplorato alcuni benchmark comparativi fra varie librerie Javascript: è risultata molto veloce anche al crescere dei dati cifrati. Va tenuto in considerazione che in questo tipo di applicazione il wallet potrebbe crescere in maniera rilevante nelle dimensioni.  
+## Features
+- Secure User Authentication: Register and log in with a unique username and password.
+- Encryption Key Management: Users enter a personal encryption key for data encryption/decryption, which is never stored on the server.
+- Advanced Encryption: Implements AES-256-CBC encryption algorithm, a balance between speed and security, using the Forge JavaScript library.
+- Data Privacy: All stored data is encrypted, ensuring it is unreadable without the user's key.
+- Scalable Design: Optimized for performance, even with large volumes of encrypted data.
 
+## Installation
+```
+git clone https://github.com/yourusername/PasswordWallet.git
+cd PasswordWallet
+npm install
+```
+## Usage
+Start the application and register a new account.
+Upon login, provide your personal encryption key.
+Manage your passwords through the intuitive user interface.
+
+## License
+This project is licensed under the MIT License.
