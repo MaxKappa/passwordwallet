@@ -1,6 +1,6 @@
 # Password Wallet 
 
-PasswordWallet is a secure, user-friendly web application designed for efficient password management and storage, utilizing advanced encryption for data protection.
+PasswordWallet is a secure, user-friendly web application designed for efficient password management and storage, utilizing encryption for data protection.
 
 ## Features
 - Secure User Authentication: Register and log in with a unique username and password.
